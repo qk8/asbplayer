@@ -204,7 +204,6 @@
         "unknownExtension": "Impossible de déterminer l’extension de \"{{fileName}} \"",
         "unsupportedExtension": "Extension \"{{extension}}\" non prise en charge.",
         "videoPlayerDragAndDropNotAllowed": "Le lecteur vidéo ne peut pas recevoir de fichiers glissés. Déposez-les en dehors de la zone de la vidéo.",
-        "restoreSessionPermissionDenied": "Autorisation refusée. Impossible de restaurer la dernière session.",
         "restoreSessionFailed": "Impossible de restaurer la dernière session. Les fichiers ont peut-être été déplacés ou supprimés."
     },
     "extension": {

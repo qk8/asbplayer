@@ -204,7 +204,6 @@
         "unknownExtension": "{{fileName}} laajennusta ei voitu määrittää",
         "unsupportedExtension": "Tiedostoa ei tueta {{extension}}",
         "videoPlayerDragAndDropNotAllowed": "Videosoitinta ei voi vastaanottaa pudotettuja tiedostoja. Pudota sen sijaan videoruudun ulkopuolelle.",
-        "restoreSessionPermissionDenied": "Käyttöoikeus evätty. Viimeisintä istuntoa ei voitu palauttaa.",
         "restoreSessionFailed": "Viimeisintä istuntoa ei voitu palauttaa. Tiedostot on ehkä siirretty tai poistettu."
     },
     "extension": {

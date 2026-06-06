@@ -204,7 +204,6 @@
         "unknownExtension": "Tidak dapat mengenali ekstensi {{fileName}}",
         "unsupportedExtension": "Ekstensi {{extension}} tidak didukung",
         "videoPlayerDragAndDropNotAllowed": "Pemutar video tidak dapat menerima berkas yang dijatuhkan langsung. Letakkan di luar bingkai video.",
-        "restoreSessionPermissionDenied": "Izin ditolak. Tidak dapat memulihkan sesi terakhir.",
         "restoreSessionFailed": "Gagal memulihkan sesi terakhir. File mungkin telah dipindahkan atau dihapus."
     },
     "extension": {

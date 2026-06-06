@@ -204,7 +204,6 @@
         "unknownExtension": "{{fileName}}の拡張子を確認できません",
         "unsupportedExtension": "対応していない拡張子です：{{extension}}",
         "videoPlayerDragAndDropNotAllowed": "動画プレイヤーはドロップしたファイルを受け取れません。動画のフレーム外にファイルをドロップしてください。",
-        "restoreSessionPermissionDenied": "権限が拒否されました。前回のセッションを復元できません。",
         "restoreSessionFailed": "前回のセッションを復元できませんでした。ファイルが移動または削除された可能性があります。"
     },
     "extension": {

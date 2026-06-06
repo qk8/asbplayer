@@ -204,7 +204,6 @@
         "unknownExtension": "Dateityp von {{fileName}} konnte nicht erkannt werden",
         "unsupportedExtension": "Nicht unterstützter Dateityp {{extension}}",
         "videoPlayerDragAndDropNotAllowed": "Video player cannot receive dropped files. Drop outside of the video frame instead.",
-        "restoreSessionPermissionDenied": "Berechtigung verweigert. Letzte Sitzung kann nicht wiederhergestellt werden.",
         "restoreSessionFailed": "Die letzte Sitzung konnte nicht wiederhergestellt werden. Die Dateien wurden möglicherweise verschoben oder gelöscht."
     },
     "extension": {

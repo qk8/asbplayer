@@ -204,7 +204,6 @@
         "unknownExtension": "Невозможно определить расширение файла {{fileName}}",
         "unsupportedExtension": "Неподдерживаемое расширение: {{extension}}",
         "videoPlayerDragAndDropNotAllowed": "Нельзя перетаскивать файлы в сам видеоплеер. Перетащите и отпустите их вне рамки видео.",
-        "restoreSessionPermissionDenied": "Доступ запрещён. Не удалось восстановить последнюю сессию.",
         "restoreSessionFailed": "Не удалось восстановить последнюю сессию. Возможно, файлы были перемещены или удалены."
     },
     "extension": {

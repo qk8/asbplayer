@@ -204,7 +204,6 @@
         "unknownExtension": "无法识别 {{fileName}} 的文件格式",
         "unsupportedExtension": "不支持该文件格式：{{extension}}",
         "videoPlayerDragAndDropNotAllowed": "播放器无法接收拖放文件，请拖至视频画面外。",
-        "restoreSessionPermissionDenied": "权限被拒绝，无法恢复上次会话。",
         "restoreSessionFailed": "恢复上次会话失败，文件可能已被移动或删除。"
     },
     "extension": {

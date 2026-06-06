@@ -204,7 +204,6 @@
         "unknownExtension": "Nie można rozpoznać rozszerzenia {{fileName}}",
         "unsupportedExtension": "Niewspierane rozszerzenie {{extension}}",
         "videoPlayerDragAndDropNotAllowed": "Odtwarzacz wideo nie może przyjąć upuszczonych plików. Zamiast tego upuść poza ramką wideo.",
-        "restoreSessionPermissionDenied": "Odmowa uprawnień. Nie można przywrócić ostatniej sesji.",
         "restoreSessionFailed": "Nie udało się przywrócić ostatniej sesji. Pliki mogły zostać przeniesione lub usunięte."
     },
     "extension": {
