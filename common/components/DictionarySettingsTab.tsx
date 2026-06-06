@@ -81,7 +81,7 @@ import WordBrowserDialog from './WordBrowserDialog';
 const yomitanInstallerUrl = 'https://github.com/yomidevs/yomitan-api';
 const yomitanMecabInstallerUrl = 'https://github.com/yomidevs/yomitan-mecab-installer';
 const waniKaniApiTokenSetupUrl = 'https://docs.asbplayer.dev/docs/guides/annotation#setup';
-const maskedDictionaryWaniKaniApiToken = '●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●';
+const maskApiToken = (apiToken: string) => '•'.repeat(Array.from(apiToken).length);
 
 const ankiCacheDependentSettings = new Set<keyof DictionaryTrack>([
     'dictionaryYomitanUrl',
@@ -369,7 +369,7 @@ const DictionarySettingsTab: React.FC<Props> = ({
     anki,
 }) => {
     const { t } = useTranslation();
-    const { ankiConnectUrl, dictionaryTracks } = settings;
+    const { ankiConnectUrl, ankiConnectApiKey, dictionaryTracks } = settings;
     const initialDictionaryTracksRef = useRef(dictionaryTracks);
     const [selectedDictionaryTrack, setSelectedDictionaryTrack] = useState<number>(0);
     const selectedDictionary = dictionaryTracks[selectedDictionaryTrack];
@@ -425,7 +425,9 @@ const DictionarySettingsTab: React.FC<Props> = ({
     const [dictionaryWaniKaniError, setDictionaryWaniKaniError] = useState<string>();
     const [waniKaniUserInfo, setWaniKaniUserInfo] = useState<WaniKaniUser>();
     const [pendingDictionaryWaniKaniApiToken, setPendingDictionaryWaniKaniApiToken] = useState<string>();
-    const [showDictionaryWaniKaniApiToken, setShowDictionaryWaniKaniApiToken] = useState(false);
+    const [showDictionaryWaniKaniApiToken, setShowDictionaryWaniKaniApiToken] = useState(
+        () => !selectedDictionary.dictionaryWaniKaniApiToken
+    );
     const dictionaryWaniKaniApiTokenVisible =
         showDictionaryWaniKaniApiToken || !selectedDictionary.dictionaryWaniKaniApiToken;
     const dictionaryWaniKaniApiTokenSetupHelperText = (
@@ -602,7 +604,7 @@ const DictionarySettingsTab: React.FC<Props> = ({
                 const modelNames = await anki.modelNames(ankiConnectUrl);
                 const allFieldNamesSet = new Set<string>();
                 for (const modelName of modelNames) {
-                    const fieldNames = await anki.modelFieldNames(modelName);
+                    const fieldNames = await anki.modelFieldNames(modelName, ankiConnectUrl);
                     for (const fieldName of fieldNames) {
                         allFieldNamesSet.add(fieldName);
                     }
@@ -614,7 +616,7 @@ const DictionarySettingsTab: React.FC<Props> = ({
                 setAnkiError(e instanceof Error ? e.message : String(e));
             }
         })();
-    }, [anki, ankiConnectUrl]);
+    }, [anki, ankiConnectUrl, ankiConnectApiKey]);
 
     const yomitanSectionRef = useRef<HTMLSpanElement | null>(null);
     const handleYomitanHelperTextClicked = () => {
@@ -867,7 +869,11 @@ const DictionarySettingsTab: React.FC<Props> = ({
                     size="small"
                     label={t('settings.subtitleTrack')!}
                     value={selectedDictionaryTrack}
-                    onChange={(e) => setSelectedDictionaryTrack(Number(e.target.value))}
+                    onChange={(e) => {
+                        const track = Number(e.target.value);
+                        setSelectedDictionaryTrack(track);
+                        setShowDictionaryWaniKaniApiToken(!dictionaryTracks[track].dictionaryWaniKaniApiToken);
+                    }}
                 >
                     {[...Array(NUM_DICTIONARY_TRACKS).keys()].map((i) => (
                         <MenuItem key={i} value={i}>
@@ -1644,11 +1650,12 @@ const DictionarySettingsTab: React.FC<Props> = ({
                             value={
                                 dictionaryWaniKaniApiTokenVisible
                                     ? selectedDictionary.dictionaryWaniKaniApiToken
-                                    : maskedDictionaryWaniKaniApiToken
+                                    : maskApiToken(selectedDictionary.dictionaryWaniKaniApiToken)
                             }
                             error={Boolean(dictionaryWaniKaniError)}
                             helperText={dictionaryWaniKaniApiTokenHelperText}
                             color="primary"
+                            sx={{ '& input': { fontFamily: 'monospace' } }}
                             onChange={(e) => {
                                 const apiToken = e.target.value;
                                 const newTracks = [...dictionaryTracks];
@@ -1665,7 +1672,7 @@ const DictionarySettingsTab: React.FC<Props> = ({
                                     sx: { ml: 0 },
                                 },
                                 input: {
-                                    readOnly: !dictionaryWaniKaniApiTokenVisible,
+                                    disabled: !dictionaryWaniKaniApiTokenVisible,
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <Tooltip title="">
