@@ -105,8 +105,8 @@ asbplayer, as a WebSocket client, responds to the following commands from a WebS
 
 ### `get-bound-media`
 
-> This command is only available in the extension
- 
+> This command is only available when extension v1.20.0+ (unreleased) is installed
+
 Returns the media asbplayer is currently tracking, including both `streaming` and `local` media.
 
 #### Request
@@ -153,8 +153,8 @@ Returns the media asbplayer is currently tracking, including both `streaming` an
 
 ### `get-subtitles`
 
-> This command is only available in the extension
-  
+> This command is only available when extension v1.20.0+ (unreleased) is installed
+
 Returns the subtitles currently loaded for a piece of media. By default it targets the active tab's video element; pass a `mediaId` from [`get-bound-media`](#get-bound-media) to target specific media.
 Returns an empty list when no matching media is found or no subtitles are loaded.
 
