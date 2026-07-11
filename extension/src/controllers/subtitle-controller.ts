@@ -768,9 +768,21 @@ export default class SubtitleController {
         return roundedOffset >= 0 ? '+' + roundedOffset + ' ms' : roundedOffset + ' ms';
     }
 
-    notification(locKey: string, replacements?: { [key: string]: string }) {
-        const text = i18n.t(locKey, replacements ?? {});
-        this.notificationElementOverlay.setHtml([{ html: () => this._buildTextHtml(text) }]);
+    notification({
+        replacements,
+        locKey,
+        text,
+    }: {
+        replacements?: { [key: string]: string };
+        locKey?: string;
+        text?: string;
+    }) {
+        if (!text && !locKey) {
+            return;
+        }
+
+        const notificationText = text ?? i18n.t(locKey!, replacements ?? {});
+        this.notificationElementOverlay.setHtml([{ html: () => this._buildTextHtml(notificationText) }]);
 
         if (this.notificationElementOverlayHideTimeout) {
             clearTimeout(this.notificationElementOverlayHideTimeout);

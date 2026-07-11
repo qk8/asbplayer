@@ -230,10 +230,12 @@ export class StatisticsOverlayController {
         this._overlay.setHtml([
             {
                 key: 'ui',
-                html: () =>
-                    `<iframe class="${colorSchemeClass} asbplayer-statistics-overlay-frame " src="${browser.runtime.getURL(
+                html: () => {
+                    console.log('rendering iframe');
+                    return `<iframe class="${colorSchemeClass} asbplayer-statistics-overlay-frame " src="${browser.runtime.getURL(
                         '/statistics-overlay-ui.html'
-                    )}"/>`,
+                    )}"/>`;
+                },
             },
         ]);
     }

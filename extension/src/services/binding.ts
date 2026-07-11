@@ -309,18 +309,18 @@ export default class Binding {
                     this.subtitleController.autoPauseContext.onWillStopShowing = undefined;
                 }
 
-                if (showNotif) this.subtitleController.notification('info.disabledAutoPause');
+                if (showNotif) this.subtitleController.notification({ locKey: 'info.disabledAutoPause' });
                 break;
             case PlayMode.condensed:
                 this.subtitleController.onNextSeekableToShow = undefined;
 
-                if (showNotif) this.subtitleController.notification('info.disabledCondensedPlayback');
+                if (showNotif) this.subtitleController.notification({ locKey: 'info.disabledCondensedPlayback' });
                 break;
             case PlayMode.fastForward:
                 this.subtitleController.onSeekableSlice = undefined;
                 this.video.playbackRate = 1;
 
-                if (showNotif) this.subtitleController.notification('info.disabledFastForwardPlayback');
+                if (showNotif) this.subtitleController.notification({ locKey: 'info.disabledFastForwardPlayback' });
                 break;
             case PlayMode.repeat:
                 if (newModes.has(PlayMode.autoPause)) {
@@ -335,7 +335,7 @@ export default class Binding {
                     this.subtitleController.autoPauseContext.onWillStopShowing = undefined;
                 }
 
-                if (showNotif) this.subtitleController.notification('info.disabledRepeatPlayback');
+                if (showNotif) this.subtitleController.notification({ locKey: 'info.disabledRepeatPlayback' });
                 break;
         }
     }
@@ -374,7 +374,7 @@ export default class Binding {
                         this.seek(subtitle.start / 1000);
                     }
                 };
-                this.subtitleController.notification('info.enabledAutoPause');
+                this.subtitleController.notification({ locKey: 'info.enabledAutoPause' });
                 break;
             case PlayMode.condensed: {
                 let seeking = false;
@@ -399,7 +399,7 @@ export default class Binding {
                         seeking = false;
                     }
                 };
-                this.subtitleController.notification('info.enabledCondensedPlayback');
+                this.subtitleController.notification({ locKey: 'info.enabledCondensedPlayback' });
                 break;
             }
             case PlayMode.fastForward:
@@ -433,7 +433,7 @@ export default class Binding {
                         this.video.playbackRate = 1;
                     }
                 };
-                this.subtitleController.notification('info.enabledFastForwardPlayback');
+                this.subtitleController.notification({ locKey: 'info.enabledFastForwardPlayback' });
                 break;
             case PlayMode.repeat:
                 this.subtitleController.autoPauseContext.onWillStopShowing = async (subtitle) => {
@@ -456,10 +456,10 @@ export default class Binding {
                     }
                 };
 
-                this.subtitleController.notification('info.enabledRepeatPlayback');
+                this.subtitleController.notification({ locKey: 'info.enabledRepeatPlayback' });
                 break;
             case PlayMode.normal:
-                this.subtitleController.notification('info.disabledAllPlayModes');
+                this.subtitleController.notification({ locKey: 'info.disabledAllPlayModes' });
                 break;
             default:
                 console.error('Unknown play mode ' + mode);
@@ -642,8 +642,11 @@ export default class Binding {
             void browser.runtime.sendMessage(command);
 
             if (this._synced && !this._playModes.has(PlayMode.fastForward)) {
-                this.subtitleController.notification('info.playbackRate', {
-                    rate: this.video.playbackRate.toFixed(1),
+                this.subtitleController.notification({
+                    locKey: 'info.playbackRate',
+                    replacements: {
+                        rate: this.video.playbackRate.toFixed(1),
+                    },
                 });
             }
             void this.mobileVideoOverlayController.updateModel();
@@ -864,7 +867,10 @@ export default class Binding {
                                 locKey = 'info.copiedSubtitle2';
                                 break;
                         }
-                        this.subtitleController.notification(locKey, { result: request.message.cardName });
+                        this.subtitleController.notification({
+                            locKey,
+                            replacements: { result: request.message.cardName },
+                        });
                         this.ankiUiSavedState = {
                             ...cardMessage,
                             text: cardMessage.text ?? '',
@@ -909,7 +915,10 @@ export default class Binding {
                     }
                     case 'notify-error': {
                         const notifyErrorMessage = request.message as NotifyErrorMessage;
-                        this.subtitleController.notification('info.error', { message: notifyErrorMessage.message });
+                        this.subtitleController.notification({
+                            locKey: 'info.error',
+                            replacements: { message: notifyErrorMessage.message },
+                        });
                         break;
                     }
                     case 'recording-started':
@@ -1703,8 +1712,11 @@ export default class Binding {
                 .get(['streamingDisplaySubtitles', 'keyBindSet'])
                 .then(({ streamingDisplaySubtitles, keyBindSet }) => {
                     if (!streamingDisplaySubtitles && keyBindSet.toggleSubtitles.keys) {
-                        this.subtitleController.notification('info.toggleSubtitlesShortcut', {
-                            keys: keyBindSet.toggleSubtitles.keys,
+                        this.subtitleController.notification({
+                            locKey: 'info.toggleSubtitlesShortcut',
+                            replacements: {
+                                keys: keyBindSet.toggleSubtitles.keys,
+                            },
                         });
                     }
                 });
