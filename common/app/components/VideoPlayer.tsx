@@ -1253,6 +1253,9 @@ export default function VideoPlayer({
                 return;
             }
 
+            const currentTimestamp = clock.time(length);
+            let mediaTimestamp: number;
+
             if (subtitle === undefined || surroundingSubtitles === undefined) {
                 const extracted = extractSubtitles();
 
@@ -1262,9 +1265,12 @@ export default function VideoPlayer({
 
                 subtitle = extracted.currentSubtitle;
                 surroundingSubtitles = extracted.surroundingSubtitles;
+                mediaTimestamp = currentTimestamp;
+            } else if (currentTimestamp >= subtitle.start && currentTimestamp <= subtitle.end) {
+                mediaTimestamp = currentTimestamp;
+            } else {
+                mediaTimestamp = subtitleTimestampWithDelay(subtitle, settings.streamingScreenshotDelay);
             }
-
-            const mediaTimestamp = subtitleTimestampWithDelay(subtitle, settings.streamingScreenshotDelay);
 
             mineSubtitle(
                 postMineAction,
@@ -1281,10 +1287,12 @@ export default function VideoPlayer({
         [
             mineSubtitle,
             extractSubtitles,
+            clock,
             settings.streamingScreenshotDelay,
             selectedAudioTrack,
             videoFile,
             videoFileName,
+            length,
         ]
     );
 
